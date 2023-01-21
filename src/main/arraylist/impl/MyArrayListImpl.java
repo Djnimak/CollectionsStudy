@@ -13,7 +13,7 @@ public class MyArrayListImpl<E> implements MyArrayList<E>
 
    public MyArrayListImpl()
    {
-      this(10);
+      arrayList = new Object[10];
    }
 
    public MyArrayListImpl(int initialCapacity)
@@ -33,29 +33,28 @@ public class MyArrayListImpl<E> implements MyArrayList<E>
    }
 
    @Override
-   public boolean add(E value)
+   public void add(E value)
    {
-      ensureCapacity(arrayList.length + 1);
-      arrayList[this.size++] = value;
-      return true;
+      ensureCapacity(size + 1);
+      arrayList[size++] = value;
    }
 
    private void ensureCapacity(int neededCapacity)
    {
       if (neededCapacity > arrayList.length)
       {
-         Object[] oldArray = arrayList;
-         int newSize = this.size + 1;
-         arrayList = Arrays.copyOf(oldArray, newSize);
+         int newSize = arrayList.length * 2;
+         arrayList = Arrays.copyOf(arrayList, newSize);
       }
    }
 
 
    @Override
+   @SuppressWarnings("unchecked")
    public E remove(int index)
    {
      Objects.checkIndex(index, size);
-     E removed = arrayList(index);
+     E removed = (E) arrayList[index];
      arrayList[index] = null;
      Object[] newArray = new Object[size - 1];
      int addCount = 0;
@@ -67,15 +66,15 @@ public class MyArrayListImpl<E> implements MyArrayList<E>
             addCount++;
          }
       }
-     arrayList = newArray;
-     size = newArray.length;
+     arrayList = Arrays.copyOf(newArray, arrayList.length);
+     size--;
      return removed;
    }
 
    @Override
    public void clear()
    {
-      arrayList = new Object[0];
+      arrayList = Arrays.copyOf(new Object[0], arrayList.length);
       size = 0;
    }
 
@@ -86,15 +85,10 @@ public class MyArrayListImpl<E> implements MyArrayList<E>
    }
 
    @Override
+   @SuppressWarnings("unchecked")
    public E get(int index)
    {
       Objects.checkIndex(index, size);
-      return arrayList(index);
-   }
-
-   @SuppressWarnings("unchecked")
-   private E arrayList(int index)
-   {
       return (E) arrayList[index];
    }
 }

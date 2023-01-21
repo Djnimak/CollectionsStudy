@@ -46,7 +46,7 @@ public class MyLinkedListImpl<E> implements MyLinkedList<E>
    @Override
    public E remove(int index)
    {
-      checkIndex(index);
+      Objects.checkIndex(index, size);
       Node<E> removedNode = getNode(index);
       E element = removedNode.element;
       Node<E> previous = removedNode.prev;
@@ -74,12 +74,6 @@ public class MyLinkedListImpl<E> implements MyLinkedList<E>
       removedNode.element = null;
       size--;
       return element;
-   }
-
-   private void checkIndex(int index)
-   {
-      if(index < 0 || index >= size)
-         throw new IndexOutOfBoundsException(index);
    }
 
    private Node<E> getNode(int index)
@@ -116,7 +110,7 @@ public class MyLinkedListImpl<E> implements MyLinkedList<E>
    @Override
    public E get(int index)
    {
-      checkIndex(index);
+      Objects.checkIndex(index, size);
       return getNode(index).element;
    }
 }

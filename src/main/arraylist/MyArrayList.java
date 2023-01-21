@@ -2,7 +2,7 @@ package main.arraylist;
 
 public interface MyArrayList<E>
 {
-   boolean add(E value);
+   void add(E value);
 
    E remove(int index);
 
