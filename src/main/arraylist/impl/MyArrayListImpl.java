@@ -7,6 +7,7 @@ import java.util.Objects;
 
 public class MyArrayListImpl<E> implements MyArrayList<E>
 {
+   private String hello = "Hello";
    private static final Object[] EMPTY_COLLECTION = {};
    private Object[] arrayList;
    private int size;
