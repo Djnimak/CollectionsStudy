@@ -4,7 +4,7 @@ public interface MyArrayList<E>
 {
    void add(E value);
 
-   E remove(int index);
+   void remove(int index);
 
    void clear();
 

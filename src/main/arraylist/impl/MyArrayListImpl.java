@@ -8,12 +8,13 @@ import java.util.Objects;
 public class MyArrayListImpl<E> implements MyArrayList<E>
 {
    private static final Object[] EMPTY_COLLECTION = {};
+   private static final Integer DEFAULT_CAPACITY = 10;
    private Object[] arrayList;
    private int size;
 
    public MyArrayListImpl()
    {
-      arrayList = new Object[10];
+      arrayList = new Object[DEFAULT_CAPACITY];
    }
 
    public MyArrayListImpl(int initialCapacity)
@@ -41,7 +42,11 @@ public class MyArrayListImpl<E> implements MyArrayList<E>
 
    private void ensureCapacity(int neededCapacity)
    {
-      if (neededCapacity > arrayList.length)
+      if (arrayList.length == 0)
+      {
+         arrayList = new Object[DEFAULT_CAPACITY];
+      }
+      else if (neededCapacity > arrayList.length)
       {
          int newSize = arrayList.length * 2;
          arrayList = Arrays.copyOf(arrayList, newSize);
@@ -50,25 +55,12 @@ public class MyArrayListImpl<E> implements MyArrayList<E>
 
 
    @Override
-   @SuppressWarnings("unchecked")
-   public E remove(int index)
+   public void remove(int index)
    {
      Objects.checkIndex(index, size);
-     E removed = (E) arrayList[index];
-     arrayList[index] = null;
-     Object[] newArray = new Object[size - 1];
-     int addCount = 0;
-      for (Object o : arrayList)
-      {
-         if (Objects.nonNull(o))
-         {
-            newArray[addCount] = o;
-            addCount++;
-         }
-      }
-     arrayList = Arrays.copyOf(newArray, arrayList.length);
+     int numberOfElements = arrayList.length - index - 1;
+     System.arraycopy(arrayList, index + 1, arrayList, index, numberOfElements);
      size--;
-     return removed;
    }
 
    @Override

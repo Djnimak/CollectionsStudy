@@ -6,7 +6,7 @@ import main.stack.MyStack;
 
 public class MyStackImpl<E> implements MyStack<E>
 {
-   private MyArrayList<E> myStack;
+   private final MyArrayList<E> myStack;
 
    private int size;
 
@@ -32,7 +32,7 @@ public class MyStackImpl<E> implements MyStack<E>
    @Override
    public void clear()
    {
-      myStack = new MyArrayListImpl<>(0);
+      myStack.clear();
       size = 0;
    }
 
