@@ -8,8 +8,6 @@ public class MyStackImpl<E> implements MyStack<E>
 {
    private final MyArrayList<E> myStack;
 
-   private int size;
-
    public MyStackImpl()
    {
       myStack = new MyArrayListImpl<>();
@@ -19,27 +17,24 @@ public class MyStackImpl<E> implements MyStack<E>
    public void push(E value)
    {
       myStack.add(value);
-      size++;
    }
 
    @Override
    public void remove(int index)
    {
       myStack.remove(index);
-      size--;
    }
 
    @Override
    public void clear()
    {
       myStack.clear();
-      size = 0;
    }
 
    @Override
    public int size()
    {
-      return size;
+      return myStack.size();
    }
 
    @Override
@@ -51,9 +46,8 @@ public class MyStackImpl<E> implements MyStack<E>
    @Override
    public E pop()
    {
-      E removed = myStack.get(myStack.size() - 1);
-      myStack.remove(myStack.size() - 1);
-      size--;
+      E removed = peek();
+      remove(myStack.size() - 1);
       return removed;
    }
 }
