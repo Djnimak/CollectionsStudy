@@ -60,7 +60,7 @@ public class MyArrayListImpl<E> implements MyArrayList<E>
      Objects.checkIndex(index, size);
      int numberOfElements = arrayList.length - index - 1;
      System.arraycopy(arrayList, index + 1, arrayList, index, numberOfElements);
-     size--;
+     arrayList[--size] = null;
    }
 
    @Override
