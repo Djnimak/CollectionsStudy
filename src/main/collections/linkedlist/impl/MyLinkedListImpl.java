@@ -1,6 +1,6 @@
-package main.linkedlist.impl;
+package main.collections.linkedlist.impl;
 
-import main.linkedlist.MyLinkedList;
+import main.collections.linkedlist.MyLinkedList;
 
 import java.util.Objects;
 

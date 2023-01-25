@@ -1,6 +1,6 @@
-package main.hashmap.impl;
+package main.collections.hashmap.impl;
 
-import main.hashmap.MyHashMap;
+import main.collections.hashmap.MyHashMap;
 
 public class MyHashMapImpl<K, V> implements MyHashMap<K, V>
 {

@@ -1,6 +1,6 @@
-package main.queue.impl;
+package main.collections.queue.impl;
 
-import main.queue.MyQueue;
+import main.collections.queue.MyQueue;
 
 import java.util.Objects;
 

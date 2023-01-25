@@ -1,4 +1,4 @@
-package main.linkedlist;
+package main.collections.linkedlist;
 
 public interface MyLinkedList<E>
 {

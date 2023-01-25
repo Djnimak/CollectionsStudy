@@ -1,4 +1,4 @@
-package main.hashmap;
+package main.collections.hashmap;
 
 public interface MyHashMap<K, V>
 {

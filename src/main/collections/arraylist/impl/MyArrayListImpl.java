@@ -1,6 +1,6 @@
-package main.arraylist.impl;
+package main.collections.arraylist.impl;
 
-import main.arraylist.MyArrayList;
+import main.collections.arraylist.MyArrayList;
 
 import java.util.Arrays;
 import java.util.Objects;

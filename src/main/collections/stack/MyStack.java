@@ -1,4 +1,4 @@
-package main.stack;
+package main.collections.stack;
 
 public interface MyStack<E>
 {

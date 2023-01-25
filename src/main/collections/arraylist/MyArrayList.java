@@ -1,4 +1,4 @@
-package main.arraylist;
+package main.collections.arraylist;
 
 public interface MyArrayList<E>
 {

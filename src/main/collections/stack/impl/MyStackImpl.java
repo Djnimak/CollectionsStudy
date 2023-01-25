@@ -1,8 +1,8 @@
-package main.stack.impl;
+package main.collections.stack.impl;
 
-import main.arraylist.MyArrayList;
-import main.arraylist.impl.MyArrayListImpl;
-import main.stack.MyStack;
+import main.collections.arraylist.MyArrayList;
+import main.collections.arraylist.impl.MyArrayListImpl;
+import main.collections.stack.MyStack;
 
 public class MyStackImpl<E> implements MyStack<E>
 {

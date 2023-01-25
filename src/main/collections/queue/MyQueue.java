@@ -1,4 +1,4 @@
-package main.queue;
+package main.collections.queue;
 
 public interface MyQueue<E>
 {
