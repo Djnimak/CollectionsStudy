@@ -2,10 +2,8 @@ package main.file.userjson;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import main.file.ReadFileUtil;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
@@ -48,8 +46,7 @@ public class UserToJson
             .setPrettyPrinting()
             .create();
 
-         JsonElement tree = gson.toJsonTree(users);
-         gson.toJson(tree, writer);
+         gson.toJson(users, writer);
       }
 
    }
