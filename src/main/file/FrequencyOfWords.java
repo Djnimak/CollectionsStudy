@@ -1,7 +1,9 @@
 package main.file;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,21 +37,38 @@ public class FrequencyOfWords
 //         frequencyMap.compute(matcher.group(), (key, value) -> (value == null) ? 1 : value + 1);
       }
 
-      int maxValue = 0;
-      String maxKey = "";
-      while (frequencyMap.size() != 0)
-      {
-         for (Map.Entry<String, Integer> entry : frequencyMap.entrySet())
+      Comparator<String> valueComparator = new Comparator<String>() {
+         public int compare(String k1, String k2)
          {
-            if (entry.getValue() > maxValue)
-            {
-               maxValue = entry.getValue();
-               maxKey = entry.getKey();
-            }
+            int comp = frequencyMap.get(k2).compareTo(
+               frequencyMap.get(k1));
+            if (comp == 0)
+               return 1;
+            else
+               return comp;
          }
-         System.out.println(maxKey + " " + maxValue);
-         frequencyMap.remove(maxKey);
-         maxValue = 0;
-      }
+      };
+
+      Map<String, Integer> result = new TreeMap<>(valueComparator);
+      result.putAll(frequencyMap);
+
+      System.out.println(result);
+
+//      int maxValue = 0;
+//      String maxKey = "";
+//      while (frequencyMap.size() != 0)
+//      {
+//         for (Map.Entry<String, Integer> entry : frequencyMap.entrySet())
+//         {
+//            if (entry.getValue() > maxValue)
+//            {
+//               maxValue = entry.getValue();
+//               maxKey = entry.getKey();
+//            }
+//         }
+//         System.out.println(maxKey + " " + maxValue);
+//         frequencyMap.remove(maxKey);
+//         maxValue = 0;
+//      }
    }
 }
