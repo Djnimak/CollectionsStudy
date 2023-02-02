@@ -35,6 +35,18 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V>
          this.value = value;
          this.next = next;
       }
+
+      @Override
+      public String toString()
+      {
+         StringBuilder sb = new StringBuilder();
+         sb.append("[key=").append(key).append(", value=").append(value).append("]");
+         if (next != null)
+         {
+            sb.append(", ").append(next);
+         }
+         return sb.toString();
+      }
    }
 
    @Override
@@ -181,5 +193,23 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V>
          current = current.next;
       }
       return value;
+   }
+
+   @Override
+   public String toString()
+   {
+      StringBuilder sb = new StringBuilder();
+      for (Node<K, V> node : nodeEntry)
+      {
+         if (node == null)
+         {
+            sb.append("[null]\r\n");
+         }
+         else
+         {
+            sb.append(node).append("\r\n");
+         }
+      }
+      return sb.toString();
    }
 }
