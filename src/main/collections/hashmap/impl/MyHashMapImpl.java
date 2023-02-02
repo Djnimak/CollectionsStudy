@@ -2,19 +2,23 @@ package main.collections.hashmap.impl;
 
 import main.collections.hashmap.MyHashMap;
 
+import java.util.Arrays;
+
 public class MyHashMapImpl<K, V> implements MyHashMap<K, V>
 {
 
    private int size;
 
-   private static final int INITIAL_CAPACITY = 16;
+   private int capacity = 16;
 
-   private final Node<K, V>[] nodeEntry;
+   private static final float LOAD_FACTOR = 0.75f;
+
+   private Node<K, V>[] nodeEntry;
 
    @SuppressWarnings("unchecked")
    public MyHashMapImpl()
    {
-      nodeEntry = new Node[INITIAL_CAPACITY];
+      nodeEntry = new Node[capacity];
    }
 
    private static class Node<K, V>
@@ -40,6 +44,16 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V>
       {
          return;
       }
+      if (size > capacity * LOAD_FACTOR)
+      {
+         resize();
+      }
+      addElement(key, value);
+      size++;
+   }
+
+   private void addElement(K key, V value)
+   {
       int index = hash(key);
 
       Node<K, V> newNode = new Node<>(key, value, null);
@@ -57,7 +71,7 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V>
             if (current.key.equals(key))
             {
                current.value = value;
-               break;
+               return;
             }
             previous = current;
             current = current.next;
@@ -67,12 +81,28 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V>
             previous.next = newNode;
          }
       }
-      size++;
    }
 
+   @SuppressWarnings("unchecked")
+   private void resize()
+   {
+      capacity *= 2;
+      Node<K, V>[] oldTable = Arrays.copyOf(nodeEntry, nodeEntry.length);
+      nodeEntry = new Node[capacity];
+      for(Node<K, V> node : oldTable)
+      {
+         while (node != null)
+         {
+            addElement(node.key, node.value);
+            node = node.next;
+         }
+      }
+   }
+
+   @SuppressWarnings("java:S2676")
    private int hash(K key)
    {
-      return Math.abs(key.hashCode()) % INITIAL_CAPACITY;
+      return Math.abs(key.hashCode()) % capacity;
    }
 
    @Override
@@ -108,7 +138,7 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V>
    @Override
    public void clear()
    {
-      for (int i = 0; i < nodeEntry.length; i++)
+      for (int i = 0; i < capacity; i++)
       {
          Node<K, V> previousNode;
          Node<K, V> current = nodeEntry[i];
