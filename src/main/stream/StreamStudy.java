@@ -1,24 +1,23 @@
 package main.stream;
 
-import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class StreamStudy
 {
+
+   private StreamStudy(){}
+
    public static void printOddIndexNames(List<String> names)
    {
       String oddNames = names.stream()
          .filter(name -> names.indexOf(name) % 2 != 0)
          .map(name -> names.indexOf(name) + ". " + name)
          .collect(Collectors.joining(", "));
-
-//      String oddNames = names.stream()
-//         .filter(name -> Integer.parseInt(name.substring(0, 1)) % 2 != 0)
-//         .collect(Collectors.joining(", "));
 
       System.out.println(oddNames);
    }
@@ -34,24 +33,23 @@ public class StreamStudy
    public static void stringToNumbers(String[] nums)
    {
       String numbers = Arrays.stream(nums)
-         .map(num -> num.split(", "))
-         .flatMap(Arrays::stream)
-         .map(Integer::parseInt)
-         .sorted()
-         .map(String::valueOf)
+         .flatMap(number -> Arrays.stream(number.split(", ")))
+         .sorted(Comparator.comparingInt(Integer::parseInt))
          .collect(Collectors.joining(", "));
 
       System.out.println(numbers);
    }
 
-//   public static <T> Stream<T> zip(Stream<T> first, Stream<T> second)
-//   {
-//      Stream<T> result =
-//   }
-
-   public static void generateUnlimitedRandomNumbers(int a, int c, int m)
+   public static <T> Stream<T> zip(Stream<T> first, Stream<T> second)
    {
-      Stream<Integer> iterate = Stream.iterate(1, seed -> (a * seed + c) % m);
-      iterate.forEach(System.out::println);
+      Iterator<T> secondIterator = second.iterator();
+      return first.flatMap(
+         firstElement -> secondIterator.hasNext() ? Stream.of(firstElement, secondIterator.next()) :
+            Stream.empty());
    }
+
+   public static Stream<Long> generateUnlimitedRandomNumbers(long a, long c, long m)
+{
+   return Stream.iterate(1L, seed -> (a * seed + c) % m);
+}
 }
